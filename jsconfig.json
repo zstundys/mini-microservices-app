@@ -2,5 +2,6 @@
   "compilerOptions": {
     "checkJs": true
   },
-  "include": ["client/src/**/*.js", "posts/src/**/*.js", "comments/src/**/*.js"]
+  "include": ["**/src/**/*.js"],
+  "exclude": ["**/node_modules"]
 }
