@@ -1,0 +1,11 @@
+.posts {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(auto-fill, minmax(min(30ch, 100%), 1fr));
+}
+
+.post {
+  border: 2px solid grey;
+  border-radius: var(--border-radius);
+  padding: 1.5rem 2rem;
+}

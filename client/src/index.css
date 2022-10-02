@@ -1,70 +1,77 @@
 :root {
-  font-family: Inter, Avenir, Helvetica, Arial, sans-serif;
-  font-size: 16px;
-  line-height: 24px;
-  font-weight: 400;
+  --font-family: "Atkinson Hyperlegible", sans-serif;
+  --border-radius: 0.25rem;
 
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
+  --input-background: hsl(268, 5%, 90%);
+  --input-padding: 0.5rem 0.75rem;
 
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  -webkit-text-size-adjust: 100%;
+  --button-color: hsl(180, 85%, 16%);
+  --button-background: hsl(180, 55%, 91%);
+  --button-background-hover: hsl(180, 50%, 86%);
+  --button-background-active: hsl(180, 45%, 80%);
+  --button-padding: 0.5rem 0.75rem;
+  --button-font-weight: 600;
 }
 
-a {
-  font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
-}
-a:hover {
-  color: #535bf2;
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
 }
 
 body {
-  margin: 0;
-  display: flex;
-  place-items: center;
-  min-width: 320px;
-  min-height: 100vh;
+  font-family: var(--font-family);
 }
 
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin-top: 0;
+  margin-bottom: 0.5rem;
+}
+
+form {
+  display: grid;
+  grid-auto-flow: row;
+  gap: 1rem;
+  width: min(30ch, 100%);
+  margin-bottom: 1rem;
+}
+
+form button[type="submit"] {
+  margin-inline-start: auto;
+}
+
+input[type="text"] {
+  border-radius: var(--border-radius);
+  border: 0;
+  background: var(--input-background);
+  padding: var(--input-padding);
 }
 
 button {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  background-color: #1a1a1a;
-  cursor: pointer;
-  transition: border-color 0.25s;
-}
-button:hover {
-  border-color: #646cff;
-}
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
+  color: var(--button-color);
+  border-radius: var(--border-radius);
+  border: 0;
+  background: var(--button-background);
+  padding: var(--button-padding);
+  text-transform: uppercase;
+  font-weight: var(--button-font-weight);
 }
 
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
-  }
-  a:hover {
-    color: #747bff;
-  }
-  button {
-    background-color: #f9f9f9;
-  }
+button:hover {
+  background: var(--button-background-hover);
+}
+
+button:active {
+  background: var(--button-background-active);
+}
+
+.form-group {
+  display: grid;
+  grid-auto-flow: row;
+  gap: 0.25rem;
 }

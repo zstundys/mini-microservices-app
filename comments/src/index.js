@@ -1,10 +1,11 @@
 import express from "express";
 import bodyParser from "body-parser";
 import { randomBytes } from "crypto";
+import cors from "cors";
 
 /** @typedef {{ id: string, content: string }} Comment */
 
-const app = express().use(bodyParser.json());
+const app = express().use(bodyParser.json(), cors());
 
 /** @type {Record<number, Comment[]>} */
 const commentsByPostId = {};
