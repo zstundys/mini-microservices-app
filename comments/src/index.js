@@ -73,5 +73,5 @@ app.listen(4001, () => {
  * @param {AnyEvent} event
  */
 function emit(event) {
-  return axios.post("http://127.0.0.1:4200/events", event);
+  return axios.post("http://127.0.0.1:4200/events", event).catch(console.error);
 }
