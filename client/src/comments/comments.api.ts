@@ -12,5 +12,6 @@ export function useComments(postId: string) {
 }
 
 export function useCreateComment(postId: string) {
-  return usePostRequest<ICommentForm>(endpoint.replace(":postId", postId));
+  const url = endpoint.replace(":postId", postId);
+  return usePostRequest<ICommentForm>(url, "http://localhost:4002/posts");
 }

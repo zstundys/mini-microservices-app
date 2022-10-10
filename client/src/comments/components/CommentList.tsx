@@ -1,24 +1,20 @@
-import { useComments } from "../comments.api";
+import { IPostComment } from "../../query";
 
 type Props = {
-  postId: string;
+  comments: IPostComment[];
 };
 
-const CommentList = (props: Props) => {
-  const { data } = useComments(props.postId);
-
+const CommentList = ({ comments }: Props) => {
   return (
     <div>
       Comments:
-      {data ? (
-        <ul>
-          {data.map((d) => (
-            <li key={d.id}>{d.content} </li>
-          ))}{" "}
-        </ul>
-      ) : (
-        "Loading..."
-      )}
+      <ul>
+        {comments.length ? (
+          comments.map((d) => <li key={d.id}>{d.content}</li>)
+        ) : (
+          <li className="text-muted">Empty</li>
+        )}
+      </ul>
     </div>
   );
 };

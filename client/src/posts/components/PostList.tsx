@@ -1,12 +1,12 @@
 import CommentForm from "../../comments/components/CommentForm";
 import CommentList from "../../comments/components/CommentList";
-import { usePosts } from "../posts.api";
+import { useQueryPosts } from "../../query";
 import "./PostList.css";
 
 type Props = {};
 
 const PostList = (props: Props) => {
-  const { data } = usePosts();
+  const { data } = useQueryPosts();
 
   if (!data) {
     return <>Loading...</>;
@@ -15,12 +15,12 @@ const PostList = (props: Props) => {
   return (
     <div className="posts">
       {data.map((p) => (
-        <div className="post" key={p.id}>
-          <h4>{p.title}</h4>
+        <article className="post" key={p.id}>
+          <h2>{p.title}</h2>
 
-          <CommentList postId={p.id} />
+          <CommentList comments={p.comments} />
           <CommentForm postId={p.id} />
-        </div>
+        </article>
       ))}
     </div>
   );

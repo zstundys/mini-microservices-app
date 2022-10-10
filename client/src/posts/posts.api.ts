@@ -8,5 +8,5 @@ export function usePosts() {
 }
 
 export function useCreatePost() {
-  return usePostRequest<IPostForm>(endpoint);
+  return usePostRequest<IPostForm>(endpoint, "http://localhost:4002/posts");
 }
