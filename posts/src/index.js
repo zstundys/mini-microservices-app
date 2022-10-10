@@ -6,6 +6,7 @@ import axios from "axios";
 
 const app = express().use(bodyParser.json(), cors());
 
+/** @type {Record<string, Post>} */
 const posts = {};
 
 app.get("/posts", (req, res) => {
@@ -19,10 +20,8 @@ app.post("/posts", async (req, res) => {
 
   posts[id] = newPost;
 
-  const event = {
-    type: "PostCreated",
-    data: newPost,
-  };
+  /** @type {PostCreatedEvent} */
+  const event = { type: "PostCreated", data: newPost };
 
   await axios.post("http://127.0.0.1:4200/events", event);
 

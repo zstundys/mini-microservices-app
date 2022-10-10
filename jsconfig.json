@@ -2,6 +2,6 @@
   "compilerOptions": {
     "checkJs": true
   },
-  "include": ["**/src/**/*.js"],
+  "include": ["./typings.d.ts", "**/src/**/*.js"],
   "exclude": ["**/node_modules"]
 }

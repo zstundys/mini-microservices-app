@@ -4,7 +4,7 @@ import { randomBytes } from "crypto";
 import cors from "cors";
 import axios from "axios";
 
-/** @typedef {{ id: string, content: string }} Comment */
+/** @typedef {{ id: string, content: string, status: 'pending' | 'approved' | 'rejected' }} Comment */
 
 const app = express().use(bodyParser.json(), cors());
 
@@ -19,12 +19,17 @@ app.get("/posts/:id/comments", (req, res) => {
 });
 
 app.post("/posts/:id/comments", async (req, res) => {
-  const commentId = randomBytes(4).toString("hex");
-  const { content } = req.body;
   const { id: postId } = req.params;
 
+  /** @type {Comment} */
+  const newComment = {
+    id: randomBytes(4).toString("hex"),
+    content: req.body.content,
+    status: "pending",
+  };
+
+  /** @type {Comment[]} */
   const comments = commentsByPostId[postId] ?? [];
-  const newComment = { id: commentId, content };
 
   comments.push(newComment);
 

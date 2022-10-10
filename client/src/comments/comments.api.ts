@@ -1,8 +1,4 @@
-import axios from "axios";
-import { useCallback } from "react";
-import useSWR, { useSWRConfig } from "swr";
-import { useFetch, usePostRequest, useReload } from "../hooks";
-import { IPostForm } from "../posts";
+import { useFetch, usePostRequest } from "../hooks";
 import { IComment, ICommentForm } from "./model";
 
 const endpoint = "http://localhost:4001/posts/:postId/comments";
