@@ -12,7 +12,7 @@ app.post("/events", async (req, res) => {
   axios.post("http://127.0.0.1:4002/events", event);
   axios.post("http://127.0.0.1:4003/events", event);
 
-  return res.send({ status: "OK" });
+  res.send({ status: "OK" });
 });
 
 app.listen(4200, () => {

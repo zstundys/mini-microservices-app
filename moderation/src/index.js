@@ -9,21 +9,15 @@ app.post("/events", async (req, res) => {
   const { type, data } = req.body;
 
   if (type === "CommentCreated") {
-    /** @type {CommentStatus} */
-    const status = data.content.includes("orange") ? "rejected" : "approved";
-
-    /** @type {CommentModeratedEvent} */
-    const event = {
+    await emit({
       type: "CommentModerated",
       data: {
         content: data.content,
         postId: data.postId,
         id: data.id,
-        status,
+        status: data.content.includes("orange") ? "rejected" : "approved",
       },
-    };
-
-    await axios.post("http://localhost:4200/events", event);
+    });
   }
 
   res.send({});
@@ -32,3 +26,10 @@ app.post("/events", async (req, res) => {
 app.listen(4003, () => {
   console.log("Listening on port 4003");
 });
+
+/**
+ * @param {AnyEvent} event
+ */
+function emit(event) {
+  return axios.post("http://127.0.0.1:4200/events", event);
+}

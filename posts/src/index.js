@@ -20,10 +20,7 @@ app.post("/posts", async (req, res) => {
 
   posts[id] = newPost;
 
-  /** @type {PostCreatedEvent} */
-  const event = { type: "PostCreated", data: newPost };
-
-  await axios.post("http://127.0.0.1:4200/events", event);
+  await emit({ type: "PostCreated", data: newPost });
 
   res.status(201).send(newPost);
 });
@@ -37,3 +34,10 @@ app.post("/events", (req, res) => {
 app.listen(4000, () => {
   console.log("Listening on port: 4000");
 });
+
+/**
+ * @param {AnyEvent} event
+ */
+function emit(event) {
+  return axios.post("http://127.0.0.1:4200/events", event);
+}

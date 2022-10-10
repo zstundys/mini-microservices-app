@@ -8,7 +8,7 @@ import axios from "axios";
 
 const app = express().use(bodyParser.json(), cors());
 
-/** @type {Record<number, Comment[]>} */
+/** @type {Record<string, Comment[]>} */
 const commentsByPostId = {};
 
 app.get("/posts/:id/comments", (req, res) => {
@@ -35,18 +35,32 @@ app.post("/posts/:id/comments", async (req, res) => {
 
   commentsByPostId[postId] = comments;
 
-  const event = {
+  await emit({
     type: "CommentCreated",
     data: { ...newComment, postId },
-  };
-
-  await axios.post("http://127.0.0.1:4200/events", event);
+  });
 
   res.status(201).send(commentsByPostId[postId]);
 });
 
-app.post("/events", (req, res) => {
+app.post("/events", async (req, res) => {
   console.log("Received event", req.body.type);
+
+  /** @type {AnyEvent} */
+  const { type, data } = req.body;
+
+  if (type === "CommentModerated") {
+    const { postId, id, status } = data;
+    const comments = commentsByPostId[postId];
+    const comment = comments.find((c) => c.id === id);
+
+    comment.status = status;
+
+    await emit({
+      type: "CommentUpdated",
+      data: { ...comment, postId },
+    });
+  }
 
   res.send({});
 });
@@ -54,3 +68,10 @@ app.post("/events", (req, res) => {
 app.listen(4001, () => {
   console.log("Listening on port: 4001");
 });
+
+/**
+ * @param {AnyEvent} event
+ */
+function emit(event) {
+  return axios.post("http://127.0.0.1:4200/events", event);
+}

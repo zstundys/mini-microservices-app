@@ -6,7 +6,7 @@ declare interface Post {
 declare type CommentStatus = "pending" | "approved" | "rejected";
 
 declare interface PostComment {
-  id: number;
+  id: string;
   content: string;
   status: CommentStatus;
 }
@@ -37,4 +37,5 @@ declare interface PostCreatedEvent
 declare type AnyEvent =
   | CommentCreatedEvent
   | CommentUpdatedEvent
+  | CommentModeratedEvent
   | PostCreatedEvent;
